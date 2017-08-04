@@ -1,0 +1,5 @@
+---
+- src: git@github.com:dminca/rancher-test.git
+  scm: git
+  version: origin/master
+
