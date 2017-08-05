@@ -23,6 +23,8 @@ ansible-playbook playbook.yml
 
 - [Ansible Rancher Module by loopingz][1]
 - [JSONformatted tool][2]
+- [PyFormat - using % and .format() for great good][3]
 
 [1]: https://github.com/loopingz/ansible-rancher-module
 [2]: https://jsonformatter.org
+[3]: https://pyformat.info
