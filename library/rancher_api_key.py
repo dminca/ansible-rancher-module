@@ -32,9 +32,10 @@ def main():
 
     api_keys_req = requests.get(API_KEYS_URL)
 
-    for api_key in api_keys_req.json['data']:
-        keys = "{id} {name}".format(id=api_key['id'], name=api_key['name'])
-        api_keys_dict.update(keys)
+    for api_key in api_keys_req.json()['data']:
+        key_id = api_key['id']
+        key_name = api_key['name']
+        api_keys_dict = {'id': key_id, 'name': key_name}
 
 
 if __name__ == '__main__':
