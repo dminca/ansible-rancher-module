@@ -19,3 +19,8 @@ ansible-galaxy install -r requirements.yml
 ansible-playbook playbook.yml
 ```
 
+## Resources
+
+- [Ansible Rancher Module by loopingz][1]
+
+[1]: https://github.com/loopingz/ansible-rancher-module

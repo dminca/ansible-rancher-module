@@ -1,3 +1,3 @@
-#!/usr/bin/env python
-# RANCHER MODULE
+#!/usr/bin/python
+from ansible.module_utils.basic import AnsibleModule
 
