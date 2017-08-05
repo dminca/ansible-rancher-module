@@ -3,7 +3,3 @@ ungrouped:
   hosts:
     localhost:
 
-test:
-  hosts:
-    10.158.15.20:
-
