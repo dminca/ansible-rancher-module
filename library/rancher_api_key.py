@@ -28,14 +28,17 @@ def main():
     r = requests.post(API_KEYS_URL, data=payload)
 
     # GET all API Keys
-    api_keys_dict = {}
+    api_keys = []
 
     api_keys_req = requests.get(API_KEYS_URL)
 
     for api_key in api_keys_req.json()['data']:
-        key_id = api_key['id']
-        key_name = api_key['name']
-        api_keys_dict = {'id': key_id, 'name': key_name}
+        ids = api_key['id'], api_key['name']
+        api_keys.append(ids)
+
+    # DELETE API Keys
+    removes = []
+
 
 
 if __name__ == '__main__':
