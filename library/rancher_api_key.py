@@ -17,6 +17,7 @@ def main():
         port='8080'
     )
 
+    # CREATE
     payload = {
         "description": "bob test",
         "name": "bob",
@@ -25,6 +26,15 @@ def main():
     }
 
     r = requests.post(API_KEYS_URL, data=payload)
+
+    # GET all API Keys
+    api_keys_dict = {}
+
+    api_keys_req = requests.get(API_KEYS_URL)
+
+    for api_key in api_keys_req.json['data']:
+        keys = "{id} {name}".format(id=api_key['id'], name=api_key['name'])
+        api_keys_dict.update(keys)
 
 
 if __name__ == '__main__':
