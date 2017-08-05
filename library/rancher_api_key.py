@@ -11,7 +11,6 @@ else:
 
 
 def main():
-    DEFAULT_PROJECT_ID = '1a5'
     API_KEYS_URL = '{protocol}://{url}:{port}/v2-beta/apiKeys'.format(
         protocol='http',
         url='localhost',
