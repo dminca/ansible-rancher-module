@@ -22,5 +22,7 @@ ansible-playbook playbook.yml
 ## Resources
 
 - [Ansible Rancher Module by loopingz][1]
+- [JSONformatted tool][2]
 
 [1]: https://github.com/loopingz/ansible-rancher-module
+[2]: https://jsonformatter.org
