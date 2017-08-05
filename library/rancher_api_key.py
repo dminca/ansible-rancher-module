@@ -11,9 +11,22 @@ else:
 
 
 def main():
-    r = requests.get("http://localhost:8080/v2-beta")
-    api_keys_url = r.json()['links']['apiKeys']
-    api_keys = requests.get(r.json()['links']['apiKeys'])
+    DEFAULT_PROJECT_ID = '1a5'
+    API_KEYS_URL = '{protocol}://{url}:{port}/v2-beta/apiKeys'.format(
+        protocol='http',
+        url='localhost',
+        port='8080'
+    )
+
+    payload = {
+        "description": "bob test",
+        "name": "bob",
+        "publicValue": "bobpublickey",
+        "secretValue": "bobsecretkey"
+    }
+
+    r = requests.post(API_KEYS_URL, data=payload)
+
 
 if __name__ == '__main__':
     main()
