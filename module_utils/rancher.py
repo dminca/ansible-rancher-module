@@ -25,8 +25,6 @@ class RancherModule(object):
 
         if not REQUESTS_FOUND:
             self.module.fail_json(msg='requests is required for this module.')
-            # TODO: do we really need this?
-            return
 
     @staticmethod
     def argument_spec(**additional_arg_spec):
