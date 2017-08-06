@@ -77,9 +77,9 @@ class RancherApiKeyModule(RancherModule):
         try:
             requests.post(API_KEYS_URL, data=payload)
         except HTTPError as error:
-            module.fail_json(msg='Failed to create API key: {err}'.format(err=error), **result)
+            self.module.fail_json(msg='Failed to create API key: {err}'.format(err=error), **result)
         else:
-            module.exit_json(
+            self.module.exit_json(
                 changed=True,
                 msg='Created API Key {name}'.format(
                     name=payload.name
@@ -106,12 +106,12 @@ class RancherApiKeyModule(RancherModule):
                             key_id=api_key
                         ))
                     except HTTPError as error:
-                        module.fail_json(
+                        self.module.fail_json(
                             msg='Failed to delete API key: {err}'.format(
                                 err=error
                             ), **result)
                     else:
-                        module.exit_json(
+                        self.module.exit_json(
                             changed=True,
                             msg='Deleted API Key {name}'.format(
                                 name=api_key

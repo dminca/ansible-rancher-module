@@ -35,7 +35,7 @@ class RancherModule(object):
             description=dict(type='str', required=False, default='generic'),
             public_key=dict(type='str', required=True),
             secret_key=dict(type='str', required=True, no_log=True),
-            state=dict(required=True, choices=['present', 'absent'])
+            state=dict(choices=['present', 'absent'], default='present')
         )
 
         if additional_arg_spec:
