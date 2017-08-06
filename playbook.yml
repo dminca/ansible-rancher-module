@@ -1,5 +1,6 @@
 ---
-- hosts: rancher
+- hosts: localhost
+  connection: local
   roles:
     - rancher-test
 
