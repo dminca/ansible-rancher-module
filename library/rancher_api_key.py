@@ -30,14 +30,31 @@ def main():
     # GET all API Keys
     api_keys = []
 
-    api_keys_req = requests.get(API_KEYS_URL)
+    api_keys_get = requests.get(API_KEYS_URL)
 
-    for api_key in api_keys_req.json()['data']:
+    for api_key in api_keys_get.json()['data']:
         ids = api_key['id'], api_key['name']
         api_keys.append(ids)
 
     # DELETE API Keys
     removes = []
+    search_for = ''
+    for api_key in api_keys_get.json()['data']:
+        ids = api_key['id'], api_key['name']
+        removes.append(ids)
+        for i in removes:
+            if i[1] == search_for:
+                search_for = i[0]
+                # first deactivate
+                requests.post("{url}/{key_id}?action=deactivate".format(
+                    url=API_KEYS_URL,
+                    key_id=search_for
+                ))
+                # now delete
+                api_keys_del = requests.delete("{url}/{key_id}".format(
+                    url=API_KEYS_URL,
+                    key_id=search_for
+                ))
 
 
 
