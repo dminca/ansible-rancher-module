@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from ansible.module_utils.basic import AnsibleModule
-import json
+from time import sleep
 
 try:
     import requests
@@ -17,45 +17,57 @@ def main():
         port='8080'
     )
 
-    # CREATE
-    payload = {
-        "description": "bob test",
-        "name": "bob",
-        "publicValue": "bobpublickey",
-        "secretValue": "bobsecretkey"
-    }
+def create_api_key(name, public_key, secret_key, description='default'):
+    payload = dict(
+        name=name,
+        publicValue=public_key,
+        secretValue=secret_key,
+        description=description
+    )
+    try:
+        requests.post(API_KEYS_URL, data=payload)
+    except HTTPError as error:
+        raise error
+    else:
+        return True
 
-    r = requests.post(API_KEYS_URL, data=payload)
 
-    # GET all API Keys
-    api_keys = []
-
-    api_keys_get = requests.get(API_KEYS_URL)
-
-    for api_key in api_keys_get.json()['data']:
-        ids = api_key['id'], api_key['name']
-        api_keys.append(ids)
-
-    # DELETE API Keys
+def delete_api_key(key_name):
     removes = []
-    search_for = ''
+    api_keys_get = requests.get(API_KEYS_URL)
     for api_key in api_keys_get.json()['data']:
         ids = api_key['id'], api_key['name']
         removes.append(ids)
         for i in removes:
-            if i[1] == search_for:
-                search_for = i[0]
+            if i[1] == key_name:
+                key_name = i[0]
                 # first deactivate
-                requests.post("{url}/{key_id}?action=deactivate".format(
-                    url=API_KEYS_URL,
-                    key_id=search_for
-                ))
-                # now delete
-                api_keys_del = requests.delete("{url}/{key_id}".format(
-                    url=API_KEYS_URL,
-                    key_id=search_for
-                ))
+                try:
+                    requests.post("{url}/{key_id}?action=deactivate".format(
+                        url=API_KEYS_URL,
+                        key_id=key_name
+                    ))
+                    time.sleep(1) # needs time to deactivate
+                    requests.delete("{url}/{key_id}".format(
+                        url=API_KEYS_URL,
+                        key_id=key_name
+                    ))
+                except HTTPError as error:
+                    raise error
+                else:
+                    return True
 
+def update_api_key():
+    pass
+
+
+def get_api_keys():
+    api_keys = []
+    api_keys_get = requests.get(API_KEYS_URL)
+    for api_key in api_keys_get.json()['data']:
+        ids = api_key['id'], api_key['name']
+        api_keys.append(ids)
+    return api_keys
 
 
 if __name__ == '__main__':
