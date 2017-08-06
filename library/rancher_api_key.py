@@ -90,14 +90,13 @@ def delete_api_key(key_name):
                     )
 
 
+def get_api_key(search):
+    api_keys = requests.get(API_KEYS_URL).json()['data']
+    matched_key = [api_key for api_key in api_keys if api_key['name'] == search]
+    if matched_key:
+        return matched_key[0]
 
-def get_api_keys():
-    api_keys = []
-    api_keys_get = requests.get(API_KEYS_URL)
-    for api_key in api_keys_get.json()['data']:
-        ids = api_key['id'], api_key['name']
-        api_keys.append(ids)
-    return api_keys
+    return None
 
 
 if __name__ == '__main__':
