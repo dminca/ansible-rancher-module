@@ -17,7 +17,30 @@ def main():
         port='8080'
     )
 
-def create_api_key(name, public_key, secret_key, description='default'):
+    module_args = dict(
+        name=dict(type='str', required=True),
+        description=dict(type='str', required=False, default='generic'),
+        public_key=dict(type='str', required=True),
+        secret_key=dict(type='str', required=True, no_log=True),
+        state=dict(required=True, choices=['present', 'absent'])
+    )
+
+    result = dict(
+        changed=False,
+        original_message='',
+        message=''
+    )
+
+    module = AnsibleModule(
+        argument_spec=module_args,
+        supports_check_mode=True
+    )
+
+    if module.check_mode:
+        return result
+
+
+def create_api_key(name, public_key, secret_key, description):
     payload = dict(
         name=name,
         publicValue=public_key,
@@ -27,9 +50,14 @@ def create_api_key(name, public_key, secret_key, description='default'):
     try:
         requests.post(API_KEYS_URL, data=payload)
     except HTTPError as error:
-        raise error
+        module.fail_json(msg='Failed to create API key: {err}'.format(err=error), **result)
     else:
-        return True
+        module.exit_json(
+            changed=True,
+            msg='Created API Key {name}'.format(
+                name=payload.name
+            ), **result
+        )
 
 
 def delete_api_key(key_name):
@@ -41,7 +69,6 @@ def delete_api_key(key_name):
         for i in removes:
             if i[1] == key_name:
                 key_name = i[0]
-                # first deactivate
                 try:
                     requests.post("{url}/{key_id}?action=deactivate".format(
                         url=API_KEYS_URL,
@@ -53,12 +80,15 @@ def delete_api_key(key_name):
                         key_id=key_name
                     ))
                 except HTTPError as error:
-                    raise error
+                    module.fail_json(msg='Failed to delete API key: {err}'.format(err=error), **result)
                 else:
-                    return True
+                    module.exit_json(
+                        changed=True,
+                        msg='Deleted API Key {name}'.format(
+                            name=key_name
+                        ), **result
+                    )
 
-def update_api_key():
-    pass
 
 
 def get_api_keys():
