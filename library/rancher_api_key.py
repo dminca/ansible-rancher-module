@@ -122,7 +122,37 @@ class RancherApiKeyModule(RancherModule):
         return None
 
 def main():
-    module = RancherApiKeyModule()
+    DEFAULT_RANCHER_HOST = 'http://localhost:8080'
+    API_KEYS_URL = '{host}/v2-beta/apiKeys'.format(host=DEFAULT_RANCHER_HOST)
+
+    module = AnsibleModule(
+        argument_spec=dict(
+            name=dict(type='str', required=True),
+            description=dict(type='str', required=False, default='generic'),
+            public_key=dict(type='str', required=True),
+            secret_key=dict(type='str', required=True, no_log=True),
+            state=dict(choices=['present', 'absent'], default='present')
+        ), supports_check_mode=True
+    )
+
+    def _create_api_key(self):
+        payload = dict(
+            name=self.name,
+            publicValue=self.public_key,
+            secretValue=self.secret_key,
+            description=self.description
+        )
+        try:
+            requests.post(API_KEYS_URL, data=payload)
+        except HTTPError as error:
+            self.module.fail_json(msg='Failed to create API key: {err}'.format(err=error), **result)
+        else:
+            self.module.exit_json(
+                changed=True,
+                msg='Created API Key {name}'.format(
+                    name=payload.name
+                ), **result
+            )
 
 if __name__ == '__main__':
     main()
