@@ -1,13 +1,8 @@
 #!/usr/bin/python
 from ansible.module_utils.basic import AnsibleModule
-from ansible.module_utils.rancher import RancherModule
+from .module_utils.rancher.rancher import RancherModule
 
-try:
-    import requests
-except ImportError:
-    REQUESTS_FOUND = True
-else:
-    REQUESTS_FOUND = False
+import requests
 
 class RancherApiKeyModule(RancherModule):
     """The rancher_api_key module for Ansible"""
