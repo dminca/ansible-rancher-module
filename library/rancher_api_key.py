@@ -54,12 +54,15 @@ class RancherAPIKeyModule(object):
         self._delete_api_key(api_key)
 
     def _api_key_to_dict(self, api_key):
-        api_key_dict = dict(
-            id=api_key['id'],
-            name=api_key['name'],
-            description=api_key['description']
-        )
-        return api_key_dict
+        if api_key is not None:
+            api_key_dict = dict(
+                id=api_key['id'],
+                name=api_key['name'],
+                description=api_key['description']
+            )
+            return api_key_dict
+        else:
+            pass
 
     def _get_api_key(self):
         api_keys = requests.get(API_KEYS_URL).json()['data']
