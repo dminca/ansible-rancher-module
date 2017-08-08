@@ -61,8 +61,6 @@ class RancherAPIKeyModule(object):
                 description=api_key['description']
             )
             return api_key_dict
-        else:
-            pass
 
     def _get_api_key(self):
         api_keys = requests.get(API_KEYS_URL).json()['data']
