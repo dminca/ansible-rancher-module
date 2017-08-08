@@ -1,14 +1,14 @@
 #!/usr/bin/python
-
 from __future__ import (absolute_import, division)
-__metaclass__ = type
-
 from ansible.module_utils.basic import AnsibleModule
 import requests
 import time
 
+__metaclass__ = type
+
 DEFAULT_RANCHER_HOST = 'http://localhost:8080'
 API_KEYS_URL = '{host}/v2-beta/apiKeys'.format(host=DEFAULT_RANCHER_HOST)
+
 
 class RancherAPIKeyModule(object):
     def __init__(self):
@@ -43,7 +43,6 @@ class RancherAPIKeyModule(object):
             api_key=self._api_key_to_dict(api_key)
         )
 
-
     def state_absent(self):
         api_key = self._get_api_key()
         if not api_key:
@@ -54,7 +53,6 @@ class RancherAPIKeyModule(object):
             )
         self._delete_api_key(api_key)
 
-
     def _api_key_to_dict(self, api_key):
         api_key_dict = dict(
             id=api_key['id'],
@@ -63,14 +61,12 @@ class RancherAPIKeyModule(object):
         )
         return api_key_dict
 
-
     def _get_api_key(self):
         api_keys = requests.get(API_KEYS_URL).json()['data']
         matched_key = [api_key for api_key in api_keys if api_key['name'] == self.name]
         if matched_key:
             return matched_key[0]
         return None
-
 
     def _create_api_key(self):
         payload = dict(
@@ -91,7 +87,6 @@ class RancherAPIKeyModule(object):
                 )
             )
 
-
     def _delete_api_key(self, api_key):
         removes = []
         api_keys_get = requests.get(API_KEYS_URL)
@@ -106,7 +101,7 @@ class RancherAPIKeyModule(object):
                             url=API_KEYS_URL,
                             key_id=key_id_found
                         ))
-                        time.sleep(1) # needs time to deactivate
+                        time.sleep(1)  # needs time to deactivate
                         requests.delete("{url}/{key_id}".format(
                             url=API_KEYS_URL,
                             key_id=key_id_found
