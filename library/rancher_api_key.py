@@ -5,6 +5,7 @@ __metaclass__ = type
 
 from ansible.module_utils.basic import AnsibleModule
 import requests
+import time
 
 DEFAULT_RANCHER_HOST = 'http://localhost:8080'
 API_KEYS_URL = '{host}/v2-beta/apiKeys'.format(host=DEFAULT_RANCHER_HOST)
@@ -98,30 +99,35 @@ class RancherAPIKeyModule(object):
             ids = api_key['id'], self.name
             removes.append(ids)
             for i in removes:
-                if i[1] == api_key:
-                    api_key = i[0]
+                if i[1] == self.name:
+                    key_id_found = i[0]
                     try:
                         requests.post("{url}/{key_id}?action=deactivate".format(
                             url=API_KEYS_URL,
-                            key_id=api_key
+                            key_id=key_id_found
                         ))
                         time.sleep(1) # needs time to deactivate
                         requests.delete("{url}/{key_id}".format(
                             url=API_KEYS_URL,
-                            key_id=api_key
+                            key_id=key_id_found
                         ))
                     except HTTPError as error:
                         self.module.fail_json(
                             msg='Failed to delete API key: {err}'.format(
                                 err=error
-                            ), **result)
+                            ))
                     else:
                         self.module.exit_json(
                             changed=True,
                             msg='Deleted API Key {name}'.format(
-                                name=api_key
-                            ), **result
+                                name=self.name
+                            )
                         )
+                else:
+                    self.module.exit_json(
+                        changed=False,
+                        msg='Nothing was changed'
+                    )
 
 
 def main():
