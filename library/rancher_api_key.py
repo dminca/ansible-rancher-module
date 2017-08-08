@@ -81,7 +81,7 @@ class RancherAPIKeyModule(object):
         )
         try:
             requests.post(API_KEYS_URL, data=payload)
-        except HTTPError as error:
+        except requests.exceptions.RequestException as error:
             self.module.fail_json(msg='Failed to create API key: {err}'.format(err=error))
         else:
             self.module.exit_json(
@@ -111,7 +111,7 @@ class RancherAPIKeyModule(object):
                             url=API_KEYS_URL,
                             key_id=key_id_found
                         ))
-                    except HTTPError as error:
+                    except requests.exceptions.RequestException as error:
                         self.module.fail_json(
                             msg='Failed to delete API key: {err}'.format(
                                 err=error
