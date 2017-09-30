@@ -31,3 +31,11 @@ class RancherProjectModule(object):
         self.members = self.module.params['members']
         self.state = self.module.params['state']
 
+    def _create_environment(self):
+        pass
+
+    def _delete_environment(self):
+        pass
+
+    def _get_environment(self):
+        pass
