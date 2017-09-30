@@ -6,7 +6,7 @@ import requests
 __metaclass__ = type
 
 DEFAULT_RANCHER_HOST = 'http://localhost:8080'
-API_URL = '{host}/v2-beta/'.format(host=DEFAULT_RANCHER_HOST)
+API_URL = '{host}/v2-beta/projects'.format(host=DEFAULT_RANCHER_HOST)
 
 
 class RancherProjectModule(object):
@@ -16,8 +16,18 @@ class RancherProjectModule(object):
     def __init__(self):
         self.module = AnsibleModule(
             argument_spec=dict(
-                name
-                description
-                members
-            )
+                name=dict(type='str', required=True),
+                description=dict(type='str', default='generic'),
+                members=dict(type='dict'),
+                state=dict(choices=[
+                    'present',
+                    'absent'
+                ], default='present')
+            ), supports_check_mode=True
         )
+
+        self.name = self.module.params['name']
+        self.description = self.module.params['description']
+        self.members = self.module.params['members']
+        self.state = self.module.params['state']
+
