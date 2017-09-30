@@ -11,7 +11,7 @@ To test this module, you need a [running rancher server][6] that listens on port
 `8080`. You can achieve that by running:
 
 ```sh
-docker run --rm --restart=unless-stopped -p 8080:8080 rancher/server
+docker run --rm -p 8080:8080 rancher/server
 ```
 
 ## Running the playbook
