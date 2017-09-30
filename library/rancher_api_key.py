@@ -28,6 +28,11 @@ class RancherAPIKeyModule(object):
         self.secret_key = self.module.params['secret_key']
         self.state = self.module.params['state']
 
+        if self.state == 'present':
+            self.state_present()
+        elif self.state == 'absent':
+            self.state_absent()
+
     def state_present(self):
         api_key = self._get_api_key()
         if api_key:
@@ -128,11 +133,6 @@ class RancherAPIKeyModule(object):
 
 def main():
     module = RancherAPIKeyModule()
-    if module.state == 'present':
-        module.state_present()
-    elif module.state == 'absent':
-        module.state_absent()
-
 
 if __name__ == '__main__':
     main()
