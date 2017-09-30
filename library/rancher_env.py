@@ -18,7 +18,7 @@ class RancherProjectModule(object):
             argument_spec=dict(
                 name=dict(type='str', required=True),
                 description=dict(type='str', default='generic'),
-                members=dict(type='dict'),
+                members=dict(type='list'),
                 state=dict(choices=[
                     'present',
                     'absent'
@@ -32,10 +32,15 @@ class RancherProjectModule(object):
         self.state = self.module.params['state']
 
     def _create_environment(self):
-        pass
+        payload = dict(
+            name=self.name,
+            description=self.description,
+            members=self.members
+        )
 
     def _delete_environment(self):
         pass
 
     def _get_environment(self):
         pass
+
