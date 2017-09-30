@@ -6,6 +6,14 @@ The need to communicate with Rancher API arose. After launching the Rancher Serv
 
 That's why this module has been created, to satisfy those and many more requirements, in order to provision Rancher clusters very fast.
 
+## Prerequisites
+To test this module, you need a [running rancher server][6] that listens on port
+`8080`. You can achieve that by running:
+
+```sh
+docker run --rm --restart=unless-stopped -p 8080:8080 rancher/server
+```
+
 ## Running the playbook
 > Before running the playbook, requirements must be installed.
 
@@ -32,3 +40,4 @@ ansible-playbook playbook.yml
 [3]: https://pyformat.info
 [4]: https://en.wikibooks.org/wiki/Python_Programming
 [5]: http://docs.python-requests.org/en/master/
+[6]: http://rancher.com/docs/rancher/latest/en/installing-rancher/installing-server/#launching-rancher-server---single-container-non-ha
