@@ -22,5 +22,13 @@ ansible-playbook playbook.yml
 ## Resources
 
 - [Ansible Rancher Module by loopingz][1]
+- [JSONformatted tool][2]
+- [PyFormat - using % and .format() for great good][3]
+- [Python programming wiki][4]
+- [requests python library documentation][5]
 
 [1]: https://github.com/loopingz/ansible-rancher-module
+[2]: https://jsonformatter.org
+[3]: https://pyformat.info
+[4]: https://en.wikibooks.org/wiki/Python_Programming
+[5]: http://docs.python-requests.org/en/master/

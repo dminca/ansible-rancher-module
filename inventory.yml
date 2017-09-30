@@ -3,3 +3,8 @@ ungrouped:
   hosts:
     localhost:
 
+rancher:
+  hosts:
+    188.166.162.76:
+  vars:
+    ansible_user: root
