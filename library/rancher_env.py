@@ -1,11 +1,11 @@
 #!/usr/bin/python
 from __future__ import (absolute_import, division)
+
 from ansible.module_utils.basic import AnsibleModule
-import requests
 
 __metaclass__ = type
 
-DEFAULT_RANCHER_HOST = 'http://localhost:8080'
+DEFAULT_RANCHER_HOST = 'http://172.17.0.3:8080'
 API_URL = '{host}/v2-beta/projects'.format(host=DEFAULT_RANCHER_HOST)
 
 
@@ -45,7 +45,7 @@ class RancherEnvironmentModule(object):
         pass
 
 def main():
-    module = RancherEnvironmentModule()
+    RancherEnvironmentModule()
 
 if __name__ == '__main__':
     main()

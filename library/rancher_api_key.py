@@ -1,8 +1,10 @@
 #!/usr/bin/python
 from __future__ import (absolute_import, division)
-from ansible.module_utils.basic import AnsibleModule
-import requests
+
 import time
+
+import requests
+from ansible.module_utils.basic import AnsibleModule
 
 __metaclass__ = type
 
@@ -132,7 +134,7 @@ class RancherAPIKeyModule(object):
 
 
 def main():
-    module = RancherAPIKeyModule()
+    RancherAPIKeyModule()
 
 if __name__ == '__main__':
     main()
