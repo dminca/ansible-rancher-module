@@ -44,3 +44,9 @@ class RancherEnvironmentModule(object):
     def _get_environment(self):
         pass
 
+def main():
+    module = RancherEnvironmentModule()
+
+if __name__ == '__main__':
+    main()
+
