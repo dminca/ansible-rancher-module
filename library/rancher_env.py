@@ -9,7 +9,7 @@ DEFAULT_RANCHER_HOST = 'http://localhost:8080'
 API_URL = '{host}/v2-beta/projects'.format(host=DEFAULT_RANCHER_HOST)
 
 
-class RancherProjectModule(object):
+class RancherEnvironmentModule(object):
     """Rancher Environments (or Project in Rancher API slang)
        CRUD.
     """
