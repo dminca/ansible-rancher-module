@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from __future__ import (absolute_import, division)
 
+import requests
 from ansible.module_utils.basic import AnsibleModule
 
 __metaclass__ = type
@@ -44,9 +45,18 @@ class RancherEnvironmentModule(object):
     def _get_environment(self):
         pass
 
+    def _get_project_member(self, name):
+        """
+        Return a Project Member ID from a name
+        :param name: string
+        :return: string
+        """
+        pass
+
+
 def main():
     RancherEnvironmentModule()
 
+
 if __name__ == '__main__':
     main()
-
