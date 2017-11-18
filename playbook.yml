@@ -4,4 +4,5 @@
   roles:
     - role: bootstrap
       tags: boo
-    - rancher-test
+    - role: rancher-test
+      tags: test
