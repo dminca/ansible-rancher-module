@@ -1,0 +1,6 @@
+---
+- name: PIP | install docker lib
+  pip:
+    name: docker
+    virtualenv_command: pyvenv
+    virtualenv: ~/PyEnv
