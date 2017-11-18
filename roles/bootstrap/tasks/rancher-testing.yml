@@ -3,11 +3,11 @@
   pip:
     name: docker
     virtualenv_command: pyvenv
-    virtualenv: ~/PyEnv
+    virtualenv: "{{ ansible_env.HOME }}/PyEnv"
 
 - name: change python interpreter
   set_fact:
-    ansible_python_interpreter: ~/PyEnv/bin/python
+    ansible_python_interpreter: "{{ ansible_env.HOME }}/PyEnv/bin/python"
 
 - name: DOCKER | start the rancher server
   docker_container:
