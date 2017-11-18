@@ -3,5 +3,6 @@
   connection: local
   gather_facts: false
   roles:
+    - role: bootstrap
+      tags: boo
     - rancher-test
-

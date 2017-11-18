@@ -1,0 +1,10 @@
+---
+# tasks file for rancher-test
+- name: create api key
+  rancher_api_key:
+    name: mallory
+    description: villain
+    public_key: mallorypublickey
+    secret_key: mallorysecretkey
+    state: present
+
