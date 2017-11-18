@@ -4,3 +4,21 @@
     name: docker
     virtualenv_command: pyvenv
     virtualenv: ~/PyEnv
+
+- name: change python interpreter
+  set_fact:
+    ansible_python_interpreter: ~/PyEnv/bin/python
+
+- name: DOCKER | start the rancher server
+  docker_container:
+    name: rancher-server
+    image: rancher/server
+    restart: true
+    restart_policy: unless-stopped
+    published_ports: 8080:8080
+    detach: true
+
+- name: ensure rancher server is running
+  wait_for:
+    port: 8080
+    delay: 5
