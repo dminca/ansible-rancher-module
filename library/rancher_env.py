@@ -35,9 +35,13 @@ class RancherEnvironmentModule(object):
     def _create_environment(self):
         payload = dict(
             name=self.name,
-            description=self.description,
-            members=self.members
+            description=self.description
         )
+
+        try:
+            requests.post(API_URL, data=payload)
+        except requests.exceptions.RequestException as error:
+            self.module.fail_json(msg="Failed to create Environment: {error}".format(err=error))
 
     def _delete_environment(self):
         pass

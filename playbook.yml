@@ -2,7 +2,7 @@
 - hosts: localhost
   connection: local
   roles:
-    - role: bootstrap
-      tags: boo
+    # - role: bootstrap
+    #   tags: boo
     - role: rancher-test
       tags: test
