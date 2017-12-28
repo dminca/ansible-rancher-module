@@ -1,0 +1,4 @@
+---
+# tasks file for bootstrap
+- import_tasks: rancher-testing.yml
+  tags: rancher

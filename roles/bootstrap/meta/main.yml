@@ -1,0 +1,26 @@
+galaxy_info:
+  author: Daniel Andrei Minca
+  description: Bootstraps module testing
+  company: Open-Source
+
+  issue_tracker_url: https://github.com/dminca/ansible-rancher-module/issues
+
+  license: GPLv3
+
+  min_ansible_version: 2.4.1.0
+
+  github_branch: master
+
+  platforms:
+    - name: ArchLinux
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+
+  galaxy_tags:
+    - bootstrap
+    - testing
+
+dependencies: []
